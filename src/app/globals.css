@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fff8fb;
+  --foreground: #2d2342;
+  --surface: #ffffff;
+  --surface-soft: #fff0f6;
+  --stroke: #f4d6e6;
+  --brand: #d66fb1;
+  --brand-strong: #ba4f96;
+  --accent: #6f5bb6;
+  --accent-soft: #e9ddff;
+  --success: #31a37d;
+  --warning: #d07f2b;
 }
 
 @theme inline {
@@ -14,13 +23,127 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #150f22;
+    --foreground: #f8edf8;
+    --surface: #221737;
+    --surface-soft: #2b1d45;
+    --stroke: #443163;
+    --brand: #ee8dc8;
+    --brand-strong: #f6a8d6;
+    --accent: #bda4ff;
+    --accent-soft: #3a2e57;
+    --success: #5fd8ab;
+    --warning: #ffbe6e;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), "Segoe UI", sans-serif;
+}
+
+.safeher-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 20%, #ffe8f3 0%, rgba(255, 232, 243, 0.2) 35%, transparent 60%),
+    radial-gradient(circle at 85% 10%, #ede2ff 0%, rgba(237, 226, 255, 0.2) 28%, transparent 62%),
+    linear-gradient(160deg, #fffafd 0%, #f8efff 35%, #fef3f8 100%);
+}
+
+.glass-shell {
+  background: color-mix(in srgb, var(--surface) 85%, white 15%);
+  border: 1px solid var(--stroke);
+  box-shadow: 0 18px 40px rgba(93, 61, 130, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.safeher-card {
+  border-radius: 16px;
+  border: 1px solid var(--stroke);
+  background: var(--surface);
+  box-shadow: 0 10px 24px rgba(98, 58, 134, 0.08);
+}
+
+.safeher-card-soft {
+  border-radius: 16px;
+  border: 1px solid var(--stroke);
+  background: var(--surface-soft);
+}
+
+.safeher-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.safeher-pill-pink {
+  background: #ffe2f1;
+  color: #a93975;
+}
+
+.safeher-pill-indigo {
+  background: #e7dfff;
+  color: #5a4aa6;
+}
+
+.safeher-pill-green {
+  background: #dcf8ed;
+  color: #1f7a5c;
+}
+
+.safeher-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.safeher-table th {
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #7f5b96;
+  padding: 0.75rem 0.85rem;
+  border-bottom: 1px solid var(--stroke);
+  text-align: left;
+}
+
+.safeher-table td {
+  padding: 0.85rem;
+  border-bottom: 1px solid var(--stroke);
+}
+
+.safeher-table tr:last-child td {
+  border-bottom: none;
+}
+
+.safeher-btn-primary {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--accent) 100%);
+  color: #fff;
+  border-radius: 12px;
+  font-weight: 700;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.safeher-btn-primary:hover {
+  transform: translateY(-1px);
+  opacity: 0.94;
+}
+
+.safeher-input {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--stroke);
+  padding: 0.7rem 0.85rem;
+  background: #fff;
+  color: #3f2f59;
+}
+
+.safeher-input:focus {
+  outline: none;
+  border-color: #d98bb9;
+  box-shadow: 0 0 0 3px rgba(217, 139, 185, 0.2);
 }

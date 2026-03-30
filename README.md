@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SafeHer Web
 
-## Getting Started
+SafeHer is a Next.js app with Supabase-backed authentication, profile storage, SOS records, and protected dashboard/admin routes.
 
-First, run the development server:
+## 1) Environment variables
+
+Create a `.env.local` file in the project root:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 2) Create database tables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Run the SQL in `supabase/schema.sql` in the Supabase SQL Editor.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This creates and configures:
+- `public.profiles`
+- `public.sos_records`
+- RLS policies for user-level access
+- `updated_at` triggers
 
-## Learn More
+## 3) Start app
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm install
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Open `http://localhost:3000`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 4) Auth and API routes
 
-## Deploy on Vercel
+Auth routes:
+- `POST /api/auth/register` (email/password signup + profile upsert)
+- `POST /api/auth/login` (email/password login + JWT cookies)
+- `POST /api/auth/logout` (clear cookies)
+- `GET /api/auth/session` (current auth user)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+User route:
+- `GET /api/user/profile` (current user profile by JWT cookie)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 5) Protected routes
+
+`/dashboard/*` and `/admin/*` are protected by `middleware.ts`.
+
+If JWT cookie is missing or expired, user is redirected to `/login`.
+
+## 6) Login model
+
+The app uses Supabase JWT access tokens stored in secure HTTP-only cookies:
+- `safeher_access_token`
+- `safeher_refresh_token`
+
+Frontend login/register forms call backend APIs (not direct client-side auth), which keeps auth flow clearer and more production-friendly.
