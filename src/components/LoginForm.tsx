@@ -1,15 +1,15 @@
 "use client";
-import { useState, type ChangeEvent, type FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const router = useRouter();
   const [form, setForm] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,29 +18,29 @@ export default function LoginForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
 
     const normalizedEmail = form.email.trim().toLowerCase();
     if (!normalizedEmail) {
-      setError('Please enter your email address.');
+      setError("Please enter your email address.");
       setLoading(false);
       return;
     }
 
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: normalizedEmail, password: form.password }),
     });
 
     const payload = await response.json();
     if (!response.ok) {
-      setError(payload?.error || 'Login failed.');
+      setError(payload?.error || "Login failed.");
       setLoading(false);
       return;
     }
 
-    router.push('/dashboard');
+    router.push("/dashboard");
     router.refresh();
   };
 
@@ -64,9 +64,15 @@ export default function LoginForm() {
         required
         className="safeher-input"
       />
-      {error && <div className="text-sm font-semibold text-[#bf3a6f]">{error}</div>}
-      <button type="submit" className="safeher-btn-primary w-full py-2.5" disabled={loading}>
-        {loading ? 'Logging in...' : 'Login'}
+      {error && (
+        <div className="text-sm font-semibold text-[#bf3a6f]">{error}</div>
+      )}
+      <button
+        type="submit"
+        className="safeher-btn-primary w-full py-2.5"
+        disabled={loading}
+      >
+        {loading ? "Logging in..." : "Login"}
       </button>
     </form>
   );

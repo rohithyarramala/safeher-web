@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase';
+import { NextRequest, NextResponse } from "next/server";
+import { createServerSupabaseClient } from "@/lib/supabase";
 
-const ACCESS_COOKIE = 'safeher_access_token';
+const ACCESS_COOKIE = "safeher_access_token";
 
 export async function GET(req: NextRequest) {
   const token = req.cookies.get(ACCESS_COOKIE)?.value;

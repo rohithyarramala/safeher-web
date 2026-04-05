@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useState } from 'react';
-import ContactRow from './ContactRow';
+import { useEffect, useState } from "react";
+import ContactRow from "./ContactRow";
 
 interface Contact {
   name: string;
@@ -9,9 +9,9 @@ interface Contact {
 }
 
 const demoContacts: Contact[] = [
-  { name: 'Maya Fernandes', phone: '+91 98900 11001', relation: 'Sister' },
-  { name: 'Aditi Rao', phone: '+91 98111 45312', relation: 'Friend' },
-  { name: 'Neha Sharma', phone: '+91 99220 88341', relation: 'Colleague' },
+  { name: "Maya Fernandes", phone: "+91 98900 11001", relation: "Sister" },
+  { name: "Aditi Rao", phone: "+91 98111 45312", relation: "Friend" },
+  { name: "Neha Sharma", phone: "+91 99220 88341", relation: "Colleague" },
 ];
 
 export default function EmergencyContacts() {
@@ -21,7 +21,7 @@ export default function EmergencyContacts() {
   useEffect(() => {
     async function fetchContacts() {
       setLoading(true);
-      const response = await fetch('/api/user/profile', { cache: 'no-store' });
+      const response = await fetch("/api/user/profile", { cache: "no-store" });
       const payload = await response.json();
 
       if (response.ok && payload?.profile?.emergency_contacts?.length) {
@@ -36,16 +36,27 @@ export default function EmergencyContacts() {
   }, []);
 
   if (loading) {
-    return <div className="text-sm font-semibold text-[#8a689e]">Loading contacts...</div>;
+    return (
+      <div className="text-sm font-semibold text-[#8a689e]">
+        Loading contacts...
+      </div>
+    );
   }
 
   return (
     <div className="space-y-4">
       {contacts.length === 0 ? (
-        <div className="text-sm font-semibold text-[#8a689e]">No emergency contacts found.</div>
+        <div className="text-sm font-semibold text-[#8a689e]">
+          No emergency contacts found.
+        </div>
       ) : (
         contacts.map((contact, idx) => (
-          <ContactRow key={idx} name={contact.name} phone={contact.phone} relation={contact.relation} />
+          <ContactRow
+            key={idx}
+            name={contact.name}
+            phone={contact.phone}
+            relation={contact.relation}
+          />
         ))
       )}
     </div>

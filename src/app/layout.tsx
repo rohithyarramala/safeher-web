@@ -16,7 +16,8 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "SafeHer | Personal Safety Companion",
-  description: "SafeHer helps women stay connected, protected, and prepared with alerts, trusted contacts, and safety intelligence.",
+  description:
+    "SafeHer helps women stay connected, protected, and prepared with alerts, trusted contacts, and safety intelligence.",
 };
 
 export default function RootLayout({

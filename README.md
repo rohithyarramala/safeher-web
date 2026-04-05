@@ -16,6 +16,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 Run the SQL in `supabase/schema.sql` in the Supabase SQL Editor.
 
 This creates and configures:
+
 - `public.profiles`
 - `public.sos_records`
 - RLS policies for user-level access
@@ -33,12 +34,14 @@ Open `http://localhost:3000`.
 ## 4) Auth and API routes
 
 Auth routes:
+
 - `POST /api/auth/register` (email/password signup + profile upsert)
 - `POST /api/auth/login` (email/password login + JWT cookies)
 - `POST /api/auth/logout` (clear cookies)
 - `GET /api/auth/session` (current auth user)
 
 User route:
+
 - `GET /api/user/profile` (current user profile by JWT cookie)
 
 ## 5) Protected routes
@@ -50,6 +53,7 @@ If JWT cookie is missing or expired, user is redirected to `/login`.
 ## 6) Login model
 
 The app uses Supabase JWT access tokens stored in secure HTTP-only cookies:
+
 - `safeher_access_token`
 - `safeher_refresh_token`
 
