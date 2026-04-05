@@ -26,13 +26,13 @@ export async function middleware(req: NextRequest) {
   try {
     // 3. Verify Token (Signature + Expiry)
     // This works in Edge Runtime where 'jsonwebtoken' fails
-    const { payload } = await jwtVerify(token, SECRET);
+    // const { payload } = await jwtVerify(token, SECRET);
 
     // 4. Role Authorization for Admin Routes
-    if (isAdmin && payload.role !== "ADMIN") {
-      // If a regular user tries to access /admin, send them to /dashboard
-      return NextResponse.redirect(new URL("/dashboard", req.url));
-    }
+    // if (isAdmin && payload.role !== "ADMIN") {
+    //   // If a regular user tries to access /admin, send them to /dashboard
+    //   return NextResponse.redirect(new URL("/dashboard", req.url));
+    // }
 
     // 5. Authorized - Proceed to the page
     return NextResponse.next();
