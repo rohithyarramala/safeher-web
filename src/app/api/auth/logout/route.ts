@@ -1,26 +1,27 @@
-import { NextResponse } from "next/server";
-
-const ACCESS_COOKIE = "safeher_access_token";
-const REFRESH_COOKIE = "safeher_refresh_token";
+import { NextResponse } from 'next/server';
 
 export async function POST() {
-  const response = NextResponse.json({ message: "Logged out successfully." });
+  try {
+    const response = NextResponse.json({ 
+      success: true, 
+      message: "Logged out successfully" 
+    });
 
-  response.cookies.set(ACCESS_COOKIE, "", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    maxAge: 0,
-  });
+    // 1. Clear the Web Cookie
+    response.cookies.set('token', '', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      expires: new Date(0), // Set expiration to the past
+      path: '/',
+    });
 
-  response.cookies.set(REFRESH_COOKIE, "", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    maxAge: 0,
-  });
+    // 2. Mobile App Note: 
+    // The mobile app will receive this 200 OK and should 
+    // manually delete the JWT from its SecureStore/AsyncStorage.
 
-  return response;
+    return response;
+  } catch (err) {
+    return NextResponse.json({ error: "Logout failed" }, { status: 500 });
+  }
 }

@@ -29,17 +29,8 @@ const adminNavItems: NavItem[] = [
   { label: "Dashboard", href: "/admin", icon: <LayoutDashboard size={18} /> },
   { label: "Users", href: "/admin/users", icon: <Users size={18} /> },
   { label: "Recordings", href: "/admin/recordings", icon: <Video size={18} /> },
-  {
-    label: "AI Monitoring",
-    href: "/admin/monitoring",
-    icon: <Bell size={18} />,
-  },
-  { label: "Community", href: "/admin/network", icon: <Network size={18} /> },
-  {
-    label: "Analytics",
-    href: "/admin/analytics",
-    icon: <BarChart3 size={18} />,
-  },
+  { label: "Articles", href: "/admin/articles", icon: <Newspaper size={18} /> },
+  { label: "Helplines", href: "/admin/helplines", icon: <LifeBuoy size={18} /> },
 ];
 
 const userNavItems: NavItem[] = [
@@ -49,12 +40,6 @@ const userNavItems: NavItem[] = [
     icon: <LayoutDashboard size={18} />,
   },
   { label: "Contacts", href: "/dashboard/contacts", icon: <Users size={18} /> },
-  {
-    label: "Family Sharing",
-    href: "/dashboard/family",
-    icon: <Share2 size={18} />,
-  },
-  { label: "Safety Feed", href: "/dashboard/feed", icon: <Shield size={18} /> },
   {
     label: "Articles",
     href: "/dashboard/articles",
